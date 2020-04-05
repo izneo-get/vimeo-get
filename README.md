@@ -2,7 +2,7 @@
 Scripts pour aider à la récupération de fichiers avec un hébergement de style Vimeo.
 
 
-## vimeo-get
+## vimeo_get
 Ce script télécharge les parties audio et vidéo d'une vidéo de type Vimeo et prépare la ligne de commande FFmpeg qui fera la fusion des deux.
 ### Utilisation
 ```
@@ -35,6 +35,43 @@ Le script téléchargera les flux sélectionnés, puis retournera la commande à
 ```
 ffmpeg -i "c:\Python\vimeo-get/tmp/1_468975811_video_mp4.tmp" -i "c:\Python\vimeo-get/DOWNLOADS/5_449260574_audio_mp4.tmp" -c copy output.mkv
 ```
+
+
+## m3u_get
+Ce script télécharge et concatène les fichiers présents dans un m3u et prépare la ligne de commande FFmpeg qui encapsulera correctement le fichier. 
+On retrouve ce type de streaming un peu partout (Audible, France TV, ...).
+### Utilisation
+```
+python m3u_get.py <MASTER_M3U_URL> [FILE_OUT]
+```
+* MASTER_M3U_URL : l'URL du fichier "master.m3u" ou "master.m3u8"
+* FILE_OUT : le nom du fichier de sortie. Si non renseigné, un nom au hasard sera donné. 
+
+
+L'URL du fichier "master.m3u" se trouve en regardant le réseau sur la page de la vidéo lorsqu'elle a commencé à se jouer : 
+![url](https://i.imgur.com/q4MTuj6.png)
+
+Exemple :  
+Pour récupérer la vidéo qui se trouve à l'URL :
+```
+https://ftvingest-vh.akamaihd.net/i/evt/streaming-adaptatif_france-dom-tom/2020/S14/J4/0c88132d-3183-4d81-b3b2-d68398ab339a_1585824346-h264-web-,398k,934k,1500k,2176k,.mp4.csmil/master.m3u8?audiotrack=0%3Afra%3AFrancais&hdnea=exp=1586093420~acl=%2fi%2fevt%2fstreaming-adaptatif_france-dom-tom%2f2020%2fS14%2fJ4%2f0c88132d-3183-4d81-b3b2-d68398ab339a_1585824346-h264-web-,398k,934k,1500k,2176k,.mp4.csmil*~hmac=cac37e83227d51e1ad1af23da12954ac41bf938170c5d487f679fabe046b1246
+```
+on exécute :
+```
+python m3u_get.py "https://ftvingest-vh.akamaihd.net/i/evt/streaming-adaptatif_france-dom-tom/2020/S14/J4/0c88132d-3183-4d81-b3b2-d68398ab339a_1585824346-h264-web-,398k,934k,1500k,2176k,.mp4.csmil/master.m3u8?audiotrack=0%3Afra%3AFrancais&hdnea=exp=1586093420~acl=%2fi%2fevt%2fstreaming-adaptatif_france-dom-tom%2f2020%2fS14%2fJ4%2f0c88132d-3183-4d81-b3b2-d68398ab339a_1585824346-h264-web-,398k,934k,1500k,2176k,.mp4.csmil*~hmac=cac37e83227d51e1ad1af23da12954ac41bf938170c5d487f679fabe046b1246"
+```
+Le script demandera quel flux on souhaite récupérer :  
+![video](https://i.imgur.com/ZgT1SRA.png)
+Il faut saisir l'identifiant du flux souhaité (ici "1", "2", "3" ou "4") ou "S" si on ne souhaite pas récupérer de flux. 
+
+Le script téléchargera le flux sélectionné, puis retournera la commande à utliser pour l'encapsuler dans un meilleur container (surtout utile quand le fichier de sortie est un ".ts") : 
+```
+Done!
+
+You can clean your file with:
+ffmpeg -i "tmp/20200405_153608_1.ts" -map 0 -c copy "tmp/20200405_153608_1.mkv"
+```
+
 
 
 
