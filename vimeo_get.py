@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+__version__ = "0.02"
+
 import requests
 import base64
 import re
