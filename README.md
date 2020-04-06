@@ -1,5 +1,7 @@
 # vimeo-get
-Scripts pour aider à la récupération de fichiers avec un hébergement de style Vimeo.
+Scripts pour aider à la récupération de fichiers avec un hébergement de style Vimeo ("master.json") ou streaming ("master.m3u").  
+
+Si vous recherchez quelque chose de bien plus complet, orientez vous directement vers [youtube-dl](https://github.com/ytdl-org/youtube-dl) qui, comme son nom ne l'indique pas, permet de récupérer des flux de plein de plateformes.  
 
 
 ## vimeo_get
